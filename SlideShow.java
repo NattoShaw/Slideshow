@@ -5,6 +5,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -19,6 +20,12 @@ import java.util.stream.Stream;
 
 public class SlideShow {
 
+    public enum floatSelect {
+        RIGHT,
+        CENTER,
+        LEFT
+    }
+
     public ArrayList<Image> images;
     ArrayList<ImageView> ivs;
     ArrayList<TranslateTransition> tt;
@@ -29,6 +36,33 @@ public class SlideShow {
         ivs = new ArrayList<>();
         tt = new ArrayList<>();
         st = new ArrayList<>();
+    }
+
+    public void addText(String text, Pane innerPane1, Pane innerPane2, int width, int height, int slideNo, floatSelect floatSelect) {
+
+        Text textPane = new Text((-width * (slideNo - 1)) + 50, (height / 2) + 20, text);
+        Text duplicateText = new Text((-width * (getIVs().size() - 1)) + 50, (height / 2) + 20, text);
+
+        textPane.setStyle("-fx-fill: #55fc9e; -fx-font-size: 30; -fx-font-weight: bold;");
+
+        if (floatSelect.equals(SlideShow.floatSelect.CENTER)) {
+            textPane.setX(((-width * (slideNo - 1)) + (width / 2)) - textPane.getBoundsInLocal().getWidth());
+            duplicateText.setX((-width * (ivs.size() - 1)) + (width / 2) - duplicateText.getBoundsInLocal().getWidth());
+        } else if (floatSelect.equals(SlideShow.floatSelect.LEFT)) {
+            textPane.setX((-width * (slideNo - 1)) + 50);
+            duplicateText.setX((-width * (ivs.size() - 1)) + 50);
+        } else if (floatSelect.equals(SlideShow.floatSelect.RIGHT)) {
+            textPane.setX((-width * (slideNo - 1)) + (width - 50));
+            duplicateText.setX((-width * (ivs.size() - 1)) + (width - 50));
+        }
+
+        innerPane1.getChildren().add(textPane);
+
+
+        if (slideNo == 1) {
+            duplicateText.setStyle("-fx-fill: #55fc9e; -fx-font-size: 30; -fx-font-weight: bold;");
+            innerPane2.getChildren().add(duplicateText);
+        }
     }
 
     public void loadImages(int width) {
