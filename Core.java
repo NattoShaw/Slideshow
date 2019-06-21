@@ -48,6 +48,11 @@ public class Core extends Application {
 
         primaryStage.setScene(rootScene);
 
+        ss.addText("Learn how to write text on a SlideShow", innerPane1, innerPane2, width, height, 1, SlideShow.floatSelect.LEFT);
+        ss.addText("THIS IS SOME OTHER TEXT ON SLIDESHOW", innerPane1, innerPane2, width, height, 2, SlideShow.floatSelect.CENTER);
+        ss.addText("THIS IS SOME OTHER TEXT ON SLIDESHOW NUMBER 3", innerPane1, innerPane2, width, height, 3, SlideShow.floatSelect.CENTER);
+        ss.addText("FINAL TEXT", innerPane1, innerPane2, width, height, 4, SlideShow.floatSelect.CENTER);
+
         ss.startAnimation(width, innerPane1, innerPane2, 4);
 
         primaryStage.show();
